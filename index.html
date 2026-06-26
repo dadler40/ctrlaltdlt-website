@@ -107,6 +107,16 @@ section { padding: 6rem 2rem; }
 .show-item.upcoming-next .show-date-block { border-color: var(--white); }
 .show-item.upcoming-next .show-month { color: var(--white); }
 
+/* SETLIST */
+#setlist { border-top: 1px solid var(--border); }
+.setlist-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border-top: 1px solid var(--border); border-left: 1px solid var(--border); }
+.setlist-item { border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 0.85rem 1rem; transition: background 0.15s; }
+.setlist-item:hover { background: var(--card2); }
+.setlist-song { font-size: 0.88rem; font-weight: 600; color: var(--white); line-height: 1.3; }
+.setlist-artist { font-size: 0.7rem; color: var(--gray); margin-top: 0.2rem; letter-spacing: 0.04em; }
+@media (max-width: 720px) { .setlist-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 480px) { .setlist-grid { grid-template-columns: 1fr; } }
+
 /* REQUEST */
 #request { border-top: 1px solid var(--border); background: var(--dark); }
 .request-wrap { max-width: 600px; margin: 0 auto; text-align: center; }
@@ -159,6 +169,7 @@ footer { border-top: 1px solid var(--border); padding: 2rem; text-align: center;
     <li><a href="#about">About</a></li>
     <li><a href="#members">Band</a></li>
     <li><a href="#shows">Shows</a></li>
+    <li><a href="#setlist">What You'll Hear</a></li>
     <li><a href="#request">Suggest a Song</a></li>
     <li><a href="#contact">Booking</a></li>
   </ul>
@@ -212,6 +223,16 @@ footer { border-top: 1px solid var(--border); padding: 2rem; text-align: center;
     </div>
     <div id="upcoming-shows"></div>
     <div id="past-shows"></div>
+  </div>
+</section>
+
+<section id="setlist">
+  <div class="container">
+    <p class="section-label">The Setlist</p>
+    <h2 class="section-title">What You'll Hear</h2>
+    <p style="color:var(--gray);font-size:0.9rem;margin-bottom:2.5rem;max-width:560px;">30 bangers spanning the 90s and 2000s. From Nirvana to Nickelback, Blink to Bowling for Soup — if it ripped through a car stereo in middle school, it's probably in here.</p>
+    <div class="setlist-grid" id="setlistGrid"></div>
+    <p style="color:var(--gray);font-size:0.75rem;margin-top:2rem;opacity:0.6;">Setlist subject to change. Not every song every show — but the bangers are always in rotation.</p>
   </div>
 </section>
 
@@ -376,6 +397,43 @@ document.getElementById("socialRow").innerHTML=SITE.socials.map(s=>
 ).join("");
 document.getElementById("footerText").innerHTML=
   `© ${SITE.footerYear} CTRL ALT DLT &nbsp;·&nbsp; ${SITE.footerCity} &nbsp;·&nbsp; <a href="mailto:${SITE.email}" style="color:inherit;text-decoration:none;">${SITE.email}</a>`;
+
+// Setlist
+const SETLIST = [
+  { song: "Buddy Holly",                       artist: "Weezer" },
+  { song: "Song 2",                            artist: "Blur" },
+  { song: "The Red",                           artist: "Chevelle" },
+  { song: "I'm Just a Kid",                   artist: "Simple Plan" },
+  { song: "Always",                            artist: "Saliva" },
+  { song: "We Are Never Ever Getting Back Together", artist: "Taylor Swift" },
+  { song: "Bad Romance",                       artist: "Halestorm" },
+  { song: "...Baby One More Time",             artist: "Bowling for Soup" },
+  { song: "Pink Pony Club",                    artist: "Chappell Roan" },
+  { song: "All The Small Things",              artist: "blink-182" },
+  { song: "Seven Nation Army",                 artist: "The White Stripes" },
+  { song: "Animal I Have Become",              artist: "Three Days Grace" },
+  { song: "Aerials",                           artist: "System of a Down" },
+  { song: "Dance, Dance",                      artist: "Fall Out Boy" },
+  { song: "Swing, Swing",                      artist: "The All-American Rejects" },
+  { song: "You're Gonna Go Far, Kid",         artist: "The Offspring" },
+  { song: "Learn to Fly",                      artist: "Foo Fighters" },
+  { song: "Animals",                           artist: "Nickelback" },
+  { song: "What I've Done",                  artist: "Linkin Park" },
+  { song: "Brain Stew",                        artist: "Green Day" },
+  { song: "Girl All the Bad Guys Want",        artist: "Bowling for Soup" },
+  { song: "The Middle",                        artist: "Jimmy Eat World" },
+  { song: "My Own Worst Enemy",                artist: "Lit" },
+  { song: "She Hates Me",                      artist: "Puddle of Mudd" },
+  { song: "First Date",                        artist: "blink-182" },
+  { song: "The Kids Aren't Alright",          artist: "The Offspring" },
+  { song: "Smells Like Teen Spirit",           artist: "Nirvana" },
+  { song: "Beverly Hills",                     artist: "Weezer" },
+  { song: "My Hero",                           artist: "Foo Fighters" },
+  { song: "Sweet Dreams (Are Made of This)",   artist: "Marilyn Manson" },
+];
+document.getElementById("setlistGrid").innerHTML = SETLIST.map(s=>
+  `<div class="setlist-item"><div class="setlist-song">${s.song}</div><div class="setlist-artist">${s.artist}</div></div>`
+).join("");
 
 function sendRequest(){
   const name=document.getElementById("req-name").value.trim();
